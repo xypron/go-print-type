@@ -19,9 +19,7 @@ func PrintTypeOf(typ reflect.Type, indent string) {
 		fmt.Printf("(%s)\n", typ)
 	}
 	switch typ.Kind() {
-	case reflect.Ptr:
-		PrintTypeOf(typ.Elem(), indent);
-	case reflect.Slice:
+	case reflect.Ptr, reflect.Slice:
 		PrintTypeOf(typ.Elem(), indent);
 	case reflect.Struct:
 		for j := 0; j < typ.NumField(); j++ {
