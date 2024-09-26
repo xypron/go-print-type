@@ -30,7 +30,8 @@ func PrintTypeOf(typ reflect.Type, indent string) {
 			if yaml == "" {
 				yaml = "????"
 			}
-			fmt.Printf("%s|-%s (%s)\n", indent, yaml, field.Type)
+			schema := field.Tag.Get("jsonschema")
+			fmt.Printf("%s|-%s (%s) %s\n", indent, yaml, field.Type, schema)
 			PrintTypeOf(field.Type, indent + "| ")
 		}
 	}

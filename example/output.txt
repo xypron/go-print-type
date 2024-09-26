@@ -9,29 +9,29 @@
 | |-ref (string)
 | |-target (string)
 | |-branch (string)
-| |-type (string)
-| |-url (string)
-|-model-assertion (string)
+| |-type (string) enum=git,enum=directory,enum=prebuilt
+| |-url (string) type=string,format=uri
+|-model-assertion (string) type=string,format=uri
 |-rootfs (*imagedefinition.Rootfs)
 | |-components ([]string)
 | |-archive (string)
 | |-flavor (string)
 | |-mirror (string)
-| |-pocket (string)
-| |-seed (*imagedefinition.Seed)
+| |-pocket (string) enum=release,enum=Release,enum=updates,enum=Updates,enum=security,enum=Security,enum=proposed,enum=Proposed
+| |-seed (*imagedefinition.Seed) oneof_required=Seed
 | | |-branch (string)
-| | |-urls ([]string)
+| | |-urls ([]string) type=array,format=uri
 | | |-names ([]string)
 | | |-vcs (*bool)
-| |-tarball (*imagedefinition.Tarball)
-| | |-url (string)
-| | |-gpg (string)
-| | |-sha256sum (string)
-| |-archive-tasks ([]string)
+| |-tarball (*imagedefinition.Tarball) oneof_required=Tarball
+| | |-url (string) type=string,format=uri
+| | |-gpg (string) type=string,format=uri
+| | |-sha256sum (string) minLength=64,maxLength=64
+| |-archive-tasks ([]string) oneof_required=ArchiveTasks
 | |-sources-list-deb822 (*bool)
 |-customization (*imagedefinition.Customization)
 | |-components ([]string)
-| |-pocket (string)
+| |-pocket (string) enum=release,enum=Release,enum=updates,enum=Updates,enum=security,enum=Security,enum=proposed,enum=Proposed
 | |-installer (*imagedefinition.Installer)
 | | |-preseeds ([]string)
 | | |-layers ([]string)
@@ -40,15 +40,15 @@
 | | |-user-data (string)
 | | |-network-config (string)
 | |-extra-ppas ([]*imagedefinition.PPA)
-| | |-name (string)
-| | |-auth (string)
+| | |-name (string) pattern=^[a-zA-Z0-9_.+-]+/[a-zA-Z0-9_.+-]+$
+| | |-auth (string) pattern=^[a-zA-Z0-9_.+-]+:[a-zA-Z0-9]+$
 | | |-fingerprint (string)
 | | |-keep-enabled (*bool)
 | |-extra-packages ([]*imagedefinition.Package)
 | | |-name (string)
 | |-extra-snaps ([]*imagedefinition.Snap)
 | | |-name (string)
-| | |-revision (int)
+| | |-revision (int) type=integer
 | | |-store (string)
 | | |-channel (string)
 | |-fstab ([]*imagedefinition.Fstab)
@@ -76,7 +76,7 @@
 | | | |-name (string)
 | | | |-id (string)
 | | | |-password (string)
-| | | |-password-type (string)
+| | | |-password-type (string) enum=text,enum=hash
 |-artifacts (*imagedefinition.Artifact)
 | |-img (*[]imagedefinition.Img)
 | | |-name (string)
@@ -96,5 +96,5 @@
 | | |-name (string)
 | |-rootfs-tarball (*imagedefinition.RootfsTar)
 | | |-name (string)
-| | |-compression (string)
-|-class (string)
+| | |-compression (string) enum=uncompressed,enum=bzip2,enum=gzip,enum=xz,enum=zstd
+|-class (string) enum=preinstalled,enum=cloud,enum=installer
