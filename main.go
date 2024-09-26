@@ -5,8 +5,8 @@ package main
 
 import (
 	"fmt"
-	"reflect"
 	"go-print-type/image_definition"
+	"reflect"
 )
 
 // PrintTypeOf prints the definition of any complex type
@@ -20,7 +20,7 @@ func PrintTypeOf(typ reflect.Type, indent string) {
 	}
 	switch typ.Kind() {
 	case reflect.Ptr, reflect.Slice:
-		PrintTypeOf(typ.Elem(), indent);
+		PrintTypeOf(typ.Elem(), indent)
 	case reflect.Struct:
 		for j := 0; j < typ.NumField(); j++ {
 			field := typ.Field(j)
@@ -30,7 +30,7 @@ func PrintTypeOf(typ reflect.Type, indent string) {
 			}
 			schema := field.Tag.Get("jsonschema")
 			fmt.Printf("%s|-%s (%s) %s\n", indent, yaml, field.Type, schema)
-			PrintTypeOf(field.Type, indent + "| ")
+			PrintTypeOf(field.Type, indent+"| ")
 		}
 	}
 }
