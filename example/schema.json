@@ -1,0 +1,689 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/ImageDefinition",
+  "$defs": {
+    "AddGroup": {
+      "properties": {
+        "GroupName": {
+          "type": "string"
+        },
+        "GroupID": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "GroupName"
+      ]
+    },
+    "AddUser": {
+      "properties": {
+        "UserName": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "PasswordType": {
+          "type": "string",
+          "enum": [
+            "text",
+            "hash"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "UserName",
+        "PasswordType"
+      ]
+    },
+    "Artifact": {
+      "properties": {
+        "Img": {
+          "items": {
+            "$ref": "#/$defs/Img"
+          },
+          "type": "array"
+        },
+        "Iso": {
+          "items": {
+            "$ref": "#/$defs/Iso"
+          },
+          "type": "array"
+        },
+        "Qcow2": {
+          "items": {
+            "$ref": "#/$defs/Qcow2"
+          },
+          "type": "array"
+        },
+        "Manifest": {
+          "$ref": "#/$defs/Manifest"
+        },
+        "Filelist": {
+          "$ref": "#/$defs/Filelist"
+        },
+        "Changelog": {
+          "$ref": "#/$defs/Changelog"
+        },
+        "RootfsTar": {
+          "$ref": "#/$defs/RootfsTar"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Changelog": {
+      "properties": {
+        "ChangelogName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ChangelogName"
+      ]
+    },
+    "CloudInit": {
+      "properties": {
+        "MetaData": {
+          "type": "string"
+        },
+        "UserData": {
+          "type": "string"
+        },
+        "NetworkConfig": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "CopyFile": {
+      "properties": {
+        "Dest": {
+          "type": "string"
+        },
+        "Source": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Dest",
+        "Source"
+      ]
+    },
+    "Customization": {
+      "properties": {
+        "Components": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "Pocket": {
+          "type": "string",
+          "enum": [
+            "release",
+            "Release",
+            "updates",
+            "Updates",
+            "security",
+            "Security",
+            "proposed",
+            "Proposed"
+          ]
+        },
+        "Installer": {
+          "$ref": "#/$defs/Installer"
+        },
+        "CloudInit": {
+          "$ref": "#/$defs/CloudInit"
+        },
+        "ExtraPPAs": {
+          "items": {
+            "$ref": "#/$defs/PPA"
+          },
+          "type": "array"
+        },
+        "ExtraPackages": {
+          "items": {
+            "$ref": "#/$defs/Package"
+          },
+          "type": "array"
+        },
+        "ExtraSnaps": {
+          "items": {
+            "$ref": "#/$defs/Snap"
+          },
+          "type": "array"
+        },
+        "Fstab": {
+          "items": {
+            "$ref": "#/$defs/Fstab"
+          },
+          "type": "array"
+        },
+        "Manual": {
+          "$ref": "#/$defs/Manual"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Pocket"
+      ]
+    },
+    "Execute": {
+      "properties": {
+        "ExecutePath": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ExecutePath"
+      ]
+    },
+    "Filelist": {
+      "properties": {
+        "FilelistName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "FilelistName"
+      ]
+    },
+    "Fstab": {
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Mountpoint": {
+          "type": "string"
+        },
+        "FSType": {
+          "type": "string"
+        },
+        "MountOptions": {
+          "type": "string"
+        },
+        "Dump": {
+          "type": "boolean"
+        },
+        "FsckOrder": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Label",
+        "Mountpoint",
+        "FSType",
+        "MountOptions",
+        "FsckOrder"
+      ]
+    },
+    "Gadget": {
+      "properties": {
+        "Ref": {
+          "type": "string"
+        },
+        "GadgetTarget": {
+          "type": "string"
+        },
+        "GadgetBranch": {
+          "type": "string"
+        },
+        "GadgetType": {
+          "type": "string",
+          "enum": [
+            "git",
+            "directory",
+            "prebuilt"
+          ]
+        },
+        "GadgetURL": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "GadgetType"
+      ]
+    },
+    "ImageDefinition": {
+      "properties": {
+        "ImageName": {
+          "type": "string"
+        },
+        "DisplayName": {
+          "type": "string"
+        },
+        "Revision": {
+          "type": "integer"
+        },
+        "Architecture": {
+          "type": "string"
+        },
+        "Series": {
+          "type": "string"
+        },
+        "Kernel": {
+          "type": "string"
+        },
+        "Gadget": {
+          "$ref": "#/$defs/Gadget"
+        },
+        "ModelAssertion": {
+          "type": "string",
+          "format": "uri"
+        },
+        "Rootfs": {
+          "$ref": "#/$defs/Rootfs"
+        },
+        "Customization": {
+          "$ref": "#/$defs/Customization"
+        },
+        "Artifacts": {
+          "$ref": "#/$defs/Artifact"
+        },
+        "Class": {
+          "type": "string",
+          "enum": [
+            "preinstalled",
+            "cloud",
+            "installer"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ImageName",
+        "DisplayName",
+        "Architecture",
+        "Series",
+        "Rootfs",
+        "Class"
+      ]
+    },
+    "Img": {
+      "properties": {
+        "ImgName": {
+          "type": "string"
+        },
+        "ImgVolume": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ImgName",
+        "ImgVolume"
+      ]
+    },
+    "Installer": {
+      "properties": {
+        "Preseeds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "Layers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Iso": {
+      "properties": {
+        "IsoName": {
+          "type": "string"
+        },
+        "IsoVolume": {
+          "type": "string"
+        },
+        "Command": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "IsoName",
+        "IsoVolume"
+      ]
+    },
+    "MakeDirs": {
+      "properties": {
+        "Path": {
+          "type": "string"
+        },
+        "Permissions": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Path",
+        "Permissions"
+      ]
+    },
+    "Manifest": {
+      "properties": {
+        "ManifestName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "ManifestName"
+      ]
+    },
+    "Manual": {
+      "properties": {
+        "MakeDirs": {
+          "items": {
+            "$ref": "#/$defs/MakeDirs"
+          },
+          "type": "array"
+        },
+        "CopyFile": {
+          "items": {
+            "$ref": "#/$defs/CopyFile"
+          },
+          "type": "array"
+        },
+        "Execute": {
+          "items": {
+            "$ref": "#/$defs/Execute"
+          },
+          "type": "array"
+        },
+        "TouchFile": {
+          "items": {
+            "$ref": "#/$defs/TouchFile"
+          },
+          "type": "array"
+        },
+        "AddGroup": {
+          "items": {
+            "$ref": "#/$defs/AddGroup"
+          },
+          "type": "array"
+        },
+        "AddUser": {
+          "items": {
+            "$ref": "#/$defs/AddUser"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PPA": {
+      "properties": {
+        "PPAName": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_.+-]+/[a-zA-Z0-9_.+-]+$"
+        },
+        "Auth": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_.+-]+:[a-zA-Z0-9]+$"
+        },
+        "Fingerprint": {
+          "type": "string"
+        },
+        "KeepEnabled": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "PPAName",
+        "KeepEnabled"
+      ]
+    },
+    "Package": {
+      "properties": {
+        "PackageName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "PackageName"
+      ]
+    },
+    "Qcow2": {
+      "properties": {
+        "Qcow2Name": {
+          "type": "string"
+        },
+        "Qcow2Volume": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Qcow2Name",
+        "Qcow2Volume"
+      ]
+    },
+    "Rootfs": {
+      "oneOf": [
+        {
+          "required": [
+            "Seed"
+          ],
+          "title": "Seed"
+        },
+        {
+          "required": [
+            "Tarball"
+          ],
+          "title": "Tarball"
+        },
+        {
+          "required": [
+            "ArchiveTasks"
+          ],
+          "title": "ArchiveTasks"
+        }
+      ],
+      "properties": {
+        "Components": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "Archive": {
+          "type": "string"
+        },
+        "Flavor": {
+          "type": "string"
+        },
+        "Mirror": {
+          "type": "string"
+        },
+        "Pocket": {
+          "type": "string",
+          "enum": [
+            "release",
+            "Release",
+            "updates",
+            "Updates",
+            "security",
+            "Security",
+            "proposed",
+            "Proposed"
+          ]
+        },
+        "Seed": {
+          "$ref": "#/$defs/Seed"
+        },
+        "Tarball": {
+          "$ref": "#/$defs/Tarball"
+        },
+        "ArchiveTasks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "SourcesListDeb822": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "Archive",
+        "Flavor",
+        "Mirror",
+        "Pocket",
+        "SourcesListDeb822"
+      ]
+    },
+    "RootfsTar": {
+      "properties": {
+        "RootfsTarName": {
+          "type": "string"
+        },
+        "Compression": {
+          "type": "string",
+          "enum": [
+            "uncompressed",
+            "bzip2",
+            "gzip",
+            "xz",
+            "zstd"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "RootfsTarName",
+        "Compression"
+      ]
+    },
+    "Seed": {
+      "properties": {
+        "SeedBranch": {
+          "type": "string"
+        },
+        "SeedURLs": {
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": "array"
+        },
+        "Names": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "Vcs": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "SeedURLs",
+        "Names",
+        "Vcs"
+      ]
+    },
+    "Snap": {
+      "properties": {
+        "SnapName": {
+          "type": "string"
+        },
+        "SnapRevision": {
+          "type": "integer"
+        },
+        "Store": {
+          "type": "string"
+        },
+        "Channel": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "SnapName",
+        "Store",
+        "Channel"
+      ]
+    },
+    "Tarball": {
+      "properties": {
+        "TarballURL": {
+          "type": "string",
+          "format": "uri"
+        },
+        "GPG": {
+          "type": "string",
+          "format": "uri"
+        },
+        "SHA256sum": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 64
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "TarballURL"
+      ]
+    },
+    "TouchFile": {
+      "properties": {
+        "TouchPath": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "TouchPath"
+      ]
+    }
+  }
+}
