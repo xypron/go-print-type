@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"strings"
 	"os"
 	"reflect"
+	"strings"
 
 	"github.com/invopop/jsonschema"
 
@@ -56,10 +56,11 @@ func (r *CustomReflector) processDefinition(schema *jsonschema.Schema, typ refle
 		field := typ.Field(j)
 		json := field.Tag.Get("json")
 		if json == "" {
-			fmt.Printf("### json tag missing for %s\n", field.Name)
-			continue
+			fmt.Printf("No json tag for %s\n", json)
+			json = field.Name
+		} else {
+			json = strings.Split(json, ",")[0]
 		}
-		json = strings.Split(json, ",")[0]
 		match := false
 		for pair := schema.Properties.Newest(); pair != nil; pair = pair.Prev() {
 
@@ -71,11 +72,17 @@ func (r *CustomReflector) processDefinition(schema *jsonschema.Schema, typ refle
 			if prop.Extras == nil {
 				prop.Extras = make(map[string]any)
 			}
-			if yaml := field.Tag.Get("yaml"); yaml != "" {
-				prop.Extras["yaml"] = yaml
-			} else {
-				fmt.Printf("### yaml not found %s\n", json)
+			if field.Name != json {
+				fmt.Printf("Go %s does not match JSON %s\n",
+					   field.Name, json);
+				prop.Extras["go"] = field.Name
 			}
+			yaml := field.Tag.Get("yaml")
+			if yaml == "" {
+				fmt.Printf("No yaml tag for %s\n", json)
+				yaml = strings.ToLower(field.Name)
+			}
+			prop.Extras["yaml"] = yaml
 		}
 		if !match {
 			fmt.Printf("### Field not found %s\n", json)
