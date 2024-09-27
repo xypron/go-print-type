@@ -5,10 +5,12 @@
     "AddGroup": {
       "properties": {
         "GroupName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "GroupID": {
-          "type": "string"
+          "type": "string",
+          "yaml": "id"
         }
       },
       "additionalProperties": false,
@@ -20,20 +22,24 @@
     "AddUser": {
       "properties": {
         "UserName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "UserID": {
-          "type": "string"
+          "type": "string",
+          "yaml": "id"
         },
         "Password": {
-          "type": "string"
+          "type": "string",
+          "yaml": "password"
         },
         "PasswordType": {
           "type": "string",
           "enum": [
             "text",
             "hash"
-          ]
+          ],
+          "yaml": "password-type"
         }
       },
       "additionalProperties": false,
@@ -49,31 +55,38 @@
           "items": {
             "$ref": "#/$defs/Img"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "img"
         },
         "Iso": {
           "items": {
             "$ref": "#/$defs/Iso"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "iso"
         },
         "Qcow2": {
           "items": {
             "$ref": "#/$defs/Qcow2"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "qcow2"
         },
         "Manifest": {
-          "$ref": "#/$defs/Manifest"
+          "$ref": "#/$defs/Manifest",
+          "yaml": "manifest"
         },
         "Filelist": {
-          "$ref": "#/$defs/Filelist"
+          "$ref": "#/$defs/Filelist",
+          "yaml": "filelist"
         },
         "Changelog": {
-          "$ref": "#/$defs/Changelog"
+          "$ref": "#/$defs/Changelog",
+          "yaml": "changelog"
         },
         "RootfsTar": {
-          "$ref": "#/$defs/RootfsTar"
+          "$ref": "#/$defs/RootfsTar",
+          "yaml": "rootfs-tarball"
         }
       },
       "additionalProperties": false,
@@ -82,7 +95,8 @@
     "Changelog": {
       "properties": {
         "ChangelogName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         }
       },
       "additionalProperties": false,
@@ -94,13 +108,16 @@
     "CloudInit": {
       "properties": {
         "MetaData": {
-          "type": "string"
+          "type": "string",
+          "yaml": "meta-data"
         },
         "UserData": {
-          "type": "string"
+          "type": "string",
+          "yaml": "user-data"
         },
         "NetworkConfig": {
-          "type": "string"
+          "type": "string",
+          "yaml": "network-config"
         }
       },
       "additionalProperties": false,
@@ -109,10 +126,12 @@
     "CopyFile": {
       "properties": {
         "Dest": {
-          "type": "string"
+          "type": "string",
+          "yaml": "destination"
         },
         "Source": {
-          "type": "string"
+          "type": "string",
+          "yaml": "source"
         }
       },
       "additionalProperties": false,
@@ -128,7 +147,8 @@
           "items": {
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "components"
         },
         "Pocket": {
           "type": "string",
@@ -141,40 +161,48 @@
             "Security",
             "proposed",
             "Proposed"
-          ]
+          ],
+          "yaml": "pocket"
         },
         "Installer": {
-          "$ref": "#/$defs/Installer"
+          "$ref": "#/$defs/Installer",
+          "yaml": "installer"
         },
         "CloudInit": {
-          "$ref": "#/$defs/CloudInit"
+          "$ref": "#/$defs/CloudInit",
+          "yaml": "cloud-init"
         },
         "ExtraPPAs": {
           "items": {
             "$ref": "#/$defs/PPA"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "extra-ppas"
         },
         "ExtraPackages": {
           "items": {
             "$ref": "#/$defs/Package"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "extra-packages"
         },
         "ExtraSnaps": {
           "items": {
             "$ref": "#/$defs/Snap"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "extra-snaps"
         },
         "Fstab": {
           "items": {
             "$ref": "#/$defs/Fstab"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "fstab"
         },
         "Manual": {
-          "$ref": "#/$defs/Manual"
+          "$ref": "#/$defs/Manual",
+          "yaml": "manual"
         }
       },
       "additionalProperties": false,
@@ -186,7 +214,8 @@
     "Execute": {
       "properties": {
         "ExecutePath": {
-          "type": "string"
+          "type": "string",
+          "yaml": "path"
         }
       },
       "additionalProperties": false,
@@ -198,7 +227,8 @@
     "Filelist": {
       "properties": {
         "FilelistName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         }
       },
       "additionalProperties": false,
@@ -210,22 +240,28 @@
     "Fstab": {
       "properties": {
         "Label": {
-          "type": "string"
+          "type": "string",
+          "yaml": "label"
         },
         "Mountpoint": {
-          "type": "string"
+          "type": "string",
+          "yaml": "mountpoint"
         },
         "FSType": {
-          "type": "string"
+          "type": "string",
+          "yaml": "filesystem-type"
         },
         "MountOptions": {
-          "type": "string"
+          "type": "string",
+          "yaml": "mount-options"
         },
         "Dump": {
-          "type": "boolean"
+          "type": "boolean",
+          "yaml": "dump"
         },
         "FsckOrder": {
-          "type": "integer"
+          "type": "integer",
+          "yaml": "fsck-order"
         }
       },
       "additionalProperties": false,
@@ -241,13 +277,16 @@
     "Gadget": {
       "properties": {
         "Ref": {
-          "type": "string"
+          "type": "string",
+          "yaml": "ref"
         },
         "GadgetTarget": {
-          "type": "string"
+          "type": "string",
+          "yaml": "target"
         },
         "GadgetBranch": {
-          "type": "string"
+          "type": "string",
+          "yaml": "branch"
         },
         "GadgetType": {
           "type": "string",
@@ -255,11 +294,13 @@
             "git",
             "directory",
             "prebuilt"
-          ]
+          ],
+          "yaml": "type"
         },
         "GadgetURL": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "yaml": "url"
         }
       },
       "additionalProperties": false,
@@ -271,38 +312,49 @@
     "ImageDefinition": {
       "properties": {
         "ImageName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "DisplayName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "display-name"
         },
         "Revision": {
-          "type": "integer"
+          "type": "integer",
+          "yaml": "revision"
         },
         "Architecture": {
-          "type": "string"
+          "type": "string",
+          "yaml": "architecture"
         },
         "Series": {
-          "type": "string"
+          "type": "string",
+          "yaml": "series"
         },
         "Kernel": {
-          "type": "string"
+          "type": "string",
+          "yaml": "kernel"
         },
         "Gadget": {
-          "$ref": "#/$defs/Gadget"
+          "$ref": "#/$defs/Gadget",
+          "yaml": "gadget"
         },
         "ModelAssertion": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "yaml": "model-assertion"
         },
         "Rootfs": {
-          "$ref": "#/$defs/Rootfs"
+          "$ref": "#/$defs/Rootfs",
+          "yaml": "rootfs"
         },
         "Customization": {
-          "$ref": "#/$defs/Customization"
+          "$ref": "#/$defs/Customization",
+          "yaml": "customization"
         },
         "Artifacts": {
-          "$ref": "#/$defs/Artifact"
+          "$ref": "#/$defs/Artifact",
+          "yaml": "artifacts"
         },
         "Class": {
           "type": "string",
@@ -310,7 +362,8 @@
             "preinstalled",
             "cloud",
             "installer"
-          ]
+          ],
+          "yaml": "class"
         }
       },
       "additionalProperties": false,
@@ -327,10 +380,12 @@
     "Img": {
       "properties": {
         "ImgName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "ImgVolume": {
-          "type": "string"
+          "type": "string",
+          "yaml": "volume"
         }
       },
       "additionalProperties": false,
@@ -346,13 +401,15 @@
           "items": {
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "preseeds"
         },
         "Layers": {
           "items": {
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "layers"
         }
       },
       "additionalProperties": false,
@@ -361,13 +418,16 @@
     "Iso": {
       "properties": {
         "IsoName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "IsoVolume": {
-          "type": "string"
+          "type": "string",
+          "yaml": "volume"
         },
         "Command": {
-          "type": "string"
+          "type": "string",
+          "yaml": "xorriso-command"
         }
       },
       "additionalProperties": false,
@@ -380,10 +440,12 @@
     "MakeDirs": {
       "properties": {
         "Path": {
-          "type": "string"
+          "type": "string",
+          "yaml": "path"
         },
         "Permissions": {
-          "type": "integer"
+          "type": "integer",
+          "yaml": "permissions"
         }
       },
       "additionalProperties": false,
@@ -396,7 +458,8 @@
     "Manifest": {
       "properties": {
         "ManifestName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         }
       },
       "additionalProperties": false,
@@ -411,37 +474,43 @@
           "items": {
             "$ref": "#/$defs/MakeDirs"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "make-dirs"
         },
         "CopyFile": {
           "items": {
             "$ref": "#/$defs/CopyFile"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "copy-file"
         },
         "Execute": {
           "items": {
             "$ref": "#/$defs/Execute"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "execute"
         },
         "TouchFile": {
           "items": {
             "$ref": "#/$defs/TouchFile"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "touch-file"
         },
         "AddGroup": {
           "items": {
             "$ref": "#/$defs/AddGroup"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "add-group"
         },
         "AddUser": {
           "items": {
             "$ref": "#/$defs/AddUser"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "add-user"
         }
       },
       "additionalProperties": false,
@@ -455,13 +524,16 @@
         },
         "Auth": {
           "type": "string",
-          "pattern": "^[a-zA-Z0-9_.+-]+:[a-zA-Z0-9]+$"
+          "pattern": "^[a-zA-Z0-9_.+-]+:[a-zA-Z0-9]+$",
+          "yaml": "auth"
         },
         "Fingerprint": {
-          "type": "string"
+          "type": "string",
+          "yaml": "fingerprint"
         },
         "KeepEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "yaml": "keep-enabled"
         }
       },
       "additionalProperties": false,
@@ -474,7 +546,8 @@
     "Package": {
       "properties": {
         "PackageName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         }
       },
       "additionalProperties": false,
@@ -486,10 +559,12 @@
     "Qcow2": {
       "properties": {
         "Qcow2Name": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "Qcow2Volume": {
-          "type": "string"
+          "type": "string",
+          "yaml": "volume"
         }
       },
       "additionalProperties": false,
@@ -525,16 +600,20 @@
           "items": {
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "components"
         },
         "Archive": {
-          "type": "string"
+          "type": "string",
+          "yaml": "archive"
         },
         "Flavor": {
-          "type": "string"
+          "type": "string",
+          "yaml": "flavor"
         },
         "Mirror": {
-          "type": "string"
+          "type": "string",
+          "yaml": "mirror"
         },
         "Pocket": {
           "type": "string",
@@ -547,22 +626,27 @@
             "Security",
             "proposed",
             "Proposed"
-          ]
+          ],
+          "yaml": "pocket"
         },
         "Seed": {
-          "$ref": "#/$defs/Seed"
+          "$ref": "#/$defs/Seed",
+          "yaml": "seed"
         },
         "Tarball": {
-          "$ref": "#/$defs/Tarball"
+          "$ref": "#/$defs/Tarball",
+          "yaml": "tarball"
         },
         "ArchiveTasks": {
           "items": {
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "archive-tasks"
         },
         "SourcesListDeb822": {
-          "type": "boolean"
+          "type": "boolean",
+          "yaml": "sources-list-deb822"
         }
       },
       "additionalProperties": false,
@@ -578,7 +662,8 @@
     "RootfsTar": {
       "properties": {
         "RootfsTarName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "Compression": {
           "type": "string",
@@ -588,7 +673,8 @@
             "gzip",
             "xz",
             "zstd"
-          ]
+          ],
+          "yaml": "compression"
         }
       },
       "additionalProperties": false,
@@ -601,23 +687,27 @@
     "Seed": {
       "properties": {
         "SeedBranch": {
-          "type": "string"
+          "type": "string",
+          "yaml": "branch"
         },
         "SeedURLs": {
           "items": {
             "type": "string",
             "format": "uri"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "urls"
         },
         "Names": {
           "items": {
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "yaml": "names"
         },
         "Vcs": {
-          "type": "boolean"
+          "type": "boolean",
+          "yaml": "vcs"
         }
       },
       "additionalProperties": false,
@@ -631,16 +721,20 @@
     "Snap": {
       "properties": {
         "SnapName": {
-          "type": "string"
+          "type": "string",
+          "yaml": "name"
         },
         "SnapRevision": {
-          "type": "integer"
+          "type": "integer",
+          "yaml": "revision"
         },
         "Store": {
-          "type": "string"
+          "type": "string",
+          "yaml": "store"
         },
         "Channel": {
-          "type": "string"
+          "type": "string",
+          "yaml": "channel"
         }
       },
       "additionalProperties": false,
@@ -655,16 +749,19 @@
       "properties": {
         "TarballURL": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "yaml": "url"
         },
         "GPG": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "yaml": "gpg"
         },
         "SHA256sum": {
           "type": "string",
           "maxLength": 64,
-          "minLength": 64
+          "minLength": 64,
+          "yaml": "sha256sum"
         }
       },
       "additionalProperties": false,
@@ -676,7 +773,8 @@
     "TouchFile": {
       "properties": {
         "TouchPath": {
-          "type": "string"
+          "type": "string",
+          "yaml": "path"
         }
       },
       "additionalProperties": false,
