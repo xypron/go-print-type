@@ -90,27 +90,44 @@ func (r *CustomReflector) processDefinition(schema *jsonschema.Schema, typ refle
 	}
 }
 
-func main() {
+func run(outputFile string) int {
 	reflector := &CustomReflector{}
 	schema := reflector.Reflect(imagedefinition.ImageDefinition{})
 
 	schemaJSON, err := json.MarshalIndent(schema, "", "  ")
 	if err != nil {
 		fmt.Printf("Error marshaling schema to JSON: %v\n", err)
-		return
+		return 1
 	}
 
-	file, err := os.Create("schema.json")
+	file, err := os.Create(outputFile)
 	if err != nil {
 		fmt.Printf("Error creating file: %v\n", err)
-		return
+		return 1
 	}
 	defer file.Close()
 
 	if _, err = file.Write(schemaJSON); err != nil {
 		fmt.Printf("Error writing to file: %v\n", err)
-		return
+		return 1
 	}
 
-	fmt.Println("JSON schema written to schema.json")
+	fmt.Printf("JSON schema written to %s\n", outputFile)
+
+	return 0
+}
+
+func usage() {
+	fmt.Printf("Usage:\n" + os.Args[0] + " <filename>\n");
+}
+
+func main() {
+	if len(os.Args) != 2 {
+		usage()
+		os.Exit(1)
+	}
+
+	ret := run(os.Args[1])
+
+	os.Exit(ret)
 }
