@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"go-print-type/image_definition"
+	"github.com/xypron/go-print-type/image_definition"
 )
 
 // PrintTypeOf prints the definition of any complex type

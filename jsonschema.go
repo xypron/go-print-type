@@ -9,7 +9,7 @@ import (
 
 	"github.com/invopop/jsonschema"
 
-	"go-print-type/image_definition"
+	"github.com/xypron/go-print-type/image_definition"
 )
 
 type CustomReflector struct {
