@@ -5,8 +5,9 @@ package main
 
 import (
 	"fmt"
-	"go-print-type/image_definition"
 	"reflect"
+
+	"go-print-type/image_definition"
 )
 
 // PrintTypeOf prints the definition of any complex type

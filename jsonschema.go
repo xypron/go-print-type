@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/invopop/jsonschema"
+
 	"go-print-type/image_definition"
 )
 
