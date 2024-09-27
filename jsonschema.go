@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 	"os"
 	"reflect"
 
@@ -33,7 +34,7 @@ func (r *CustomReflector) CollectTypes(m *map[string]reflect.Type, typ reflect.T
 func (r *CustomReflector) Reflect(value interface{}) *jsonschema.Schema {
 	schema := r.reflector.Reflect(value)
 	if schema == nil {
-		fmt.Println("No schema generated")
+		fmt.Println("### No schema generated")
 		return nil
 	}
 
@@ -51,17 +52,33 @@ func (r *CustomReflector) Reflect(value interface{}) *jsonschema.Schema {
 
 // processDefinition processes the schema definition and adds yaml tag as Extra
 func (r *CustomReflector) processDefinition(schema *jsonschema.Schema, typ reflect.Type) {
-	for element := schema.Properties.Newest(); element != nil; element = element.Prev() {
-		for j := 0; j < typ.NumField(); j++ {
-			field := typ.Field(j)
-			if prop, exists := schema.Properties.Get(field.Name); exists {
-				if prop.Extras == nil {
-					prop.Extras = make(map[string]any)
-				}
-				if yaml := field.Tag.Get("yaml"); yaml != "" {
-					prop.Extras["yaml"] = yaml
-				}
+	for j := 0; j < typ.NumField(); j++ {
+		field := typ.Field(j)
+		json := field.Tag.Get("json")
+		if json == "" {
+			fmt.Printf("### json tag missing for %s\n", field.Name)
+			continue
+		}
+		json = strings.Split(json, ",")[0]
+		match := false
+		for pair := schema.Properties.Newest(); pair != nil; pair = pair.Prev() {
+
+			if pair.Key != json {
+				continue
 			}
+			match = true
+			prop := pair.Value
+			if prop.Extras == nil {
+				prop.Extras = make(map[string]any)
+			}
+			if yaml := field.Tag.Get("yaml"); yaml != "" {
+				prop.Extras["yaml"] = yaml
+			} else {
+				fmt.Printf("### yaml not found %s\n", json)
+			}
+		}
+		if !match {
+			fmt.Printf("### Field not found %s\n", json)
 		}
 	}
 }

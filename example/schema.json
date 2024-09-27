@@ -520,7 +520,8 @@
       "properties": {
         "PPAName": {
           "type": "string",
-          "pattern": "^[a-zA-Z0-9_.+-]+/[a-zA-Z0-9_.+-]+$"
+          "pattern": "^[a-zA-Z0-9_.+-]+/[a-zA-Z0-9_.+-]+$",
+          "yaml": "name"
         },
         "Auth": {
           "type": "string",
