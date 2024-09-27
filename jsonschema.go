@@ -9,14 +9,6 @@ import (
 	"go-print-type/image_definition"
 )
 
-// Define your Go type
-type Person struct {
-	Name    string `json:"name"`
-	Age     int    `json:"age"`
-	Email   string `json:"email"`
-	Address string `json:"address"`
-}
-
 func main() {
 	// Create a new reflector
 	reflector := jsonschema.Reflector{}
@@ -47,4 +39,3 @@ func main() {
 
 	fmt.Println("JSON schema written to schema.json")
 }
-
