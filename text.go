@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /*
 Package go-print-type uses reflection to print complex types.
 */

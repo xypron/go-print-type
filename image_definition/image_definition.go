@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /*
 Package imagedefinition provides the structure for the
 image definition that will be parsed from a YAML file.
